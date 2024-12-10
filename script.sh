@@ -39,15 +39,7 @@ sudo apt-get update -y
 sudo apt-get install nginx -y
 sudo nginx -v
 
-
-# sudo sed -i 's/^user.*/#&/' /etc/nginx/nginx.conf
-# sudo chown -R www-data:www-data /var/log/nginx
-# sudo chmod -R 755 /var/log/nginx
-
 sudo chmod a+w /var/log/nginx/*.log
-
-# sudo systemctl start nginx
-# sudo systemctl enable nginx
 
 
 echo "Nginx instalado y configurado."
@@ -55,34 +47,40 @@ echo "Nginx instalado y configurado."
 # Configuración de Nginx como proxy inverso
 echo "Configurando Nginx como proxy inverso..."
 
-sudo bash -c 'cat <<EOL > /etc/nginx/sites-available/default
+# Definir la ruta del archivo de configuración de NGINX
+NGINX_CONF="/etc/nginx/sites-available/default"
+
+cat > default <<EOL
 server {
     listen 80;
 
     server_name localhost;
 
     location /app-1 {
-        proxy_pass http://127.0.0.1:8080/;  # Asegúrate de que la URL sea correcta
+        proxy_pass http://127.0.0.1:8080/;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
     }
 
     location /app-2 {
-        proxy_pass http://127.0.0.1:8081/;  # Asegúrate de que la URL sea correcta
+        proxy_pass http://127.0.0.1:8081/;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
     }
-
 }
-EOL'
+EOL
+
+# Crear la nueva configuración de NGINX con sudo
+sudo cp default /etc/nginx/sites-available/default
 
 echo "Verificando la configuración de Nginx..."
+
 nginx -t
 
 if [ $? -ne 0 ]; then
@@ -91,6 +89,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Reiniciando Nginx para aplicar los cambios..."
+
 systemctl restart nginx
 
 echo "Instalación y configuración completa."

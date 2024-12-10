@@ -4,7 +4,7 @@ server {
     server_name localhost;
 
     location /app-1 {
-        proxy_pass http://127.0.0.1:8080/;  # Asegúrate de que la URL sea correcta
+        proxy_pass http://127.0.0.1:8080/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -13,7 +13,7 @@ server {
     }
 
     location /app-2 {
-        proxy_pass http://127.0.0.1:8081/;  # Asegúrate de que la URL sea correcta
+        proxy_pass http://127.0.0.1:8081/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
