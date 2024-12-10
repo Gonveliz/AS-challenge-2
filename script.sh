@@ -9,8 +9,10 @@ fi
 echo "Actualizando repositorios y paquetes..."
 sudo apt update && apt upgrade -y
 sudo apt-get update && apt-get upgrade -y
+
 # Instalación de Docker
 echo "Instalando Docker..."
+
 # Add Docker's official GPG key:
 sudo apt-get update -y
 sudo apt-get install ca-certificates curl -y
@@ -31,8 +33,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
-sudo apt-get update -y
-
 # Instalación de Nginx
 echo "Instalando Nginx..."
 sudo apt-get update -y
@@ -40,7 +40,6 @@ sudo apt-get install nginx -y
 sudo nginx -v
 
 sudo chmod a+w /var/log/nginx/*.log
-
 
 echo "Nginx instalado y configurado."
 
