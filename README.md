@@ -3,7 +3,7 @@
 Está guía tiene como objetivo poder utilizar el codigo de script de [Bash](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest) para automatizar la instalacion de dependencias.
 
 <p align="center">
-<img src="/assets/bashlogo.png" width="40%">
+<img src="/assets/bashlogo.png" width="30%">
 
 ## Tabla de contenido
 - [IaC Challenge 2 - Guía y Uso](#iac-challenge-2---guía-y-uso)
