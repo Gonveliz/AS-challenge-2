@@ -39,7 +39,8 @@ sudo apt-get update -y
 sudo apt-get install nginx -y
 sudo nginx -v
 
-sudo chmod a+w /var/log/nginx/*.log
+sudo chown www-data:adm /var/log/nginx/*.log
+sudo chmod 660 /var/log/nginx/*.log
 
 echo "Nginx instalado y configurado."
 
